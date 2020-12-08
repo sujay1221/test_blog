@@ -8,17 +8,21 @@
             <h4 class="card-title"><a class="article-title" href="{% url 'post-detail' blog.id %}" >{{blog.title}} </a></h4>
             <h6 class="card-subtitle mb-2 text-muted"> <a href="{% url 'user-home' blog.author.id %}" >Author -- {{blog.author}} </a> </h6>
             <p class="card-text"> {{blog.content}}</p>
-            <img width="100px" src="{{ blog.image1.url }}" alt="image1">
-            <br>
-            <br>
-            <img width="100px" src="{{ blog.image2.url }}" alt="image2" >
-            <br>
-            
-            <p>Open a PDF file <a href="{{ blog.pdf.url }}">Click here!</a></p>
-            <br>
+            {% if blog.company_name %}
             <p>Company = {{ blog.company_name }} </p>
+            {% endif %}
             {% if blog.salary %}
             <p>Salary = {{ salary }}</p>
+            {% endif %}
+            {% if blog.image1 %}
+            <img width="100px" src="{{ blog.image1.url }}" alt="image1">
+            {% endif %}
+            <br>
+            {% if blog.image2 %}
+            <img width="100px" src="{{ blog.image2.url }}" alt="image2" >
+            {% endif %}
+            {% if blog.pdf %}
+            <p class="my-2">Open a PDF file <a href="{{ blog.pdf.url }}">Click here!</a></p>
             {% endif %}
             <a href="{% url 'post-delete' blog.id %}" class="card-link">Delete</a>
             <a href="{% url 'post-update' blog.id %}" class="card-link">Update</a>

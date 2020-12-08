@@ -7,7 +7,9 @@
     <br>
     <div class="content-section">
         <div class="media">
+        {% if user.profile.profile_pic %}
         <img class="rounded-circle account-img" src="{{ user.profile.profile_pic.url }}">
+        {% endif %}
             <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <br>
@@ -16,22 +18,14 @@
             <p class="text-secondary">{{ request.user.profile.bio }}</p>
             </div>
         </div>
-        <form method = "POST" enctype="multipart/form-data" >
+        <form method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4"> User info.</legend>
+            <legend class="border-bottom mb-4"> User Info.</legend>
             {{ u_form.as_p }}
-            
+            {{ p_form.as_p }}   
         </fieldset>
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info.</legend>
-            {{ p_form.as_p }}
-            
-        </fieldset>
-        
-        <div class="form-group">
-            <buttton class="btn btn-outline-info" type="submit"> Update </button>
-        </div>
+        <button class="btn btn-outline-info" type="submit"> Update </button>
         </form>
     </div>
 {% endblock  %} 

@@ -20,14 +20,14 @@ def signup(request):
     
 @login_required(login_url='login')
 def profile(request):
-    if request.method == "POST" :
-        u_form =  UserUpdateForm(request.POST,instance = request.user)
-        p_form = ProfileForm(request.POST,request.FILES,instance = request.user.profile)
-        if u_form.is_valid and p_form.is_valid :
+    if request.method=='POST' :
+        u_form =  UserUpdateForm(request.POST or None,instance = request.user)
+        p_form = ProfileForm(request.POST or None,request.FILES,instance = request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request,f'your account has been updated!')
-            return redirect('profile')
+            return redirect('posts')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileForm(instance=request.user.profile)
@@ -36,4 +36,4 @@ def profile(request):
         'u_form':u_form,
         'p_form':p_form,
     }
-    return render(request,template_name='user/profile.html',context = context)
+    return render(request,'user/profile.html',context)
