@@ -1,13 +1,36 @@
 {% extends 'blog/base.html' %}
 {% block content  %}
     {% for blog in blogs  %}
+    <article class="media content-section my-2">
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h4 class="card-title"> {{blog.title}} </h5>
-            <h6 class="card-subtitle mb-2 text-muted"> {{blog.author}} </h6>
+            <img class="rounded-circle mb-3" width=40px src="{{ blog.author.profile.profile_pic.url }}">
+            <h4 class="card-title"><a class="article-title" href="{% url 'post-detail' blog.id %}" >{{blog.title}} </a></h4>
+            <h6 class="card-subtitle mb-2 text-muted"> <a href="{% url 'user-home' blog.author.id %}"> Author -- {{blog.author}} </a> </h6>
             <p class="card-text"> {{blog.content}}</p>
             <a href="#" class="card-link">Card link</a>
         </div>
     </div>
+    </article>
+    <br>
     {% endfor %}
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}">Previous</a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num > page_obj.number|add:'3' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+        {% endif %}
+    {% endif %}
+
 {% endblock content %}

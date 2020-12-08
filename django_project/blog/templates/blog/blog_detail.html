@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block content  %}
+    
+    <article class="media content-section">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <img class="rounded-circle mb-3" width=40px src="{{ blog.author.profile.profile_pic.url }}">
+            <h4 class="card-title"><a class="article-title" href="{% url 'post-detail' blog.id %}" >{{blog.title}} </a></h4>
+            <h6 class="card-subtitle mb-2 text-muted"> <a href="{% url 'user-home' blog.author.id %}" >Author -- {{blog.author}} </a> </h6>
+            <p class="card-text"> {{blog.content}}</p>
+            <img width="100px" src="{{ blog.image1.url }}" alt="image1">
+            <br>
+            <br>
+            <img width="100px" src="{{ blog.image2.url }}" alt="image2" >
+            <br>
+            
+            <p>Open a PDF file <a href="{{ blog.pdf.url }}">Click here!</a></p>
+            <br>
+            <p>Company = {{ blog.company_name }} </p>
+            {% if blog.salary %}
+            <p>Salary = {{ salary }}</p>
+            {% endif %}
+            <a href="{% url 'post-delete' blog.id %}" class="card-link">Delete</a>
+            <a href="{% url 'post-update' blog.id %}" class="card-link">Update</a>
+        </div>
+    </div>
+    </article>
+    
+{% endblock content %}

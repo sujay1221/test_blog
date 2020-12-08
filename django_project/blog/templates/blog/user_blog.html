@@ -1,13 +1,16 @@
-{% extends 'blog.html' %}
+{% extends 'blog/base.html' %}
 {%  block  content  %}
-    {% for blog in user_blogs %}
+    {% for blog in user_blog %}
+    <article class="media content-section my-2">
     <div class="card" style="width: 18rem;">
-        <div class="card-body">
+        <div class="card-body ">
             <h5 class="card-title"> {{blog.title}} </h5>
             <h6 class="card-subtitle mb-2 text-muted"> {{blog.author}} </h6>
             <p class="card-text"> {{blog.content}}</p>
             <a href="#" class="card-link">Card link</a>
         </div>
     </div>
+    </article>
+    <br>
     {% endfor %}
 {% endblock content %}

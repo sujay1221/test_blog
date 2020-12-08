@@ -1,0 +1,35 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block  content %}
+      <br>
+      <div class="content-section">
+        <form method="get" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Blog Post</legend>
+                {{ myfilter.form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Filter</button>
+            </div>
+        </form>
+    </div>
+
+    {% for blog in blogs  %}
+    <article class="media content-section my-2">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <img class="rounded-circle mb-3" width=40px src="{{ blog.author.profile.profile_pic.url }}">
+            <h4 class="card-title"><a class="article-title" href="{% url 'post-detail' blog.id %}" >{{blog.title}} </a></h4>
+            <h6 class="card-subtitle mb-2 text-muted"> <a href="{% url 'user-home' blog.author.id %}"> Author -- {{blog.author}} </a> </h6>
+            <p class="card-text"> {{blog.content}}</p>
+            <a href="#" class="card-link">Card link</a>
+        </div>
+    </div>
+    </article>
+    <br>
+    {% endfor %}
+
+
+{% endblock  %} 
